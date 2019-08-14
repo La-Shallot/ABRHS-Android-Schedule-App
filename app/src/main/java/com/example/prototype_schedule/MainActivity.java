@@ -15,6 +15,7 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String>Classes = new ArrayList<>();
+    private String[][] Master_Classes = new String[14][7];
     private ArrayList<String>Times = new ArrayList<>();
     private ArrayList<String>Periods = new ArrayList<>();
     private LinearLayout welcome;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             setContentView(R.layout.hello);
-            welcome = (LinearLayout) findViewById(R.id.click_hello);
+            welcome = findViewById(R.id.click_hello);
             welcome.setOnClickListener(new Hello_Listener());
         }
 
@@ -50,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateData(){
-        Classes = new ArrayList<>(Arrays.asList("Math", "English", "Free", "APUSH", "APChem", "Lunch", "Art", "French"));
-        Times = new ArrayList<>(Arrays.asList("09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"));
-        for(int i = 0; i < 8; i++){
+        Classes = new ArrayList<>(Arrays.asList("Math", "English", "Free", "APUSH", "APChem", "Lunch", "Art"));
+        Times = new ArrayList<>(Arrays.asList("09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"));
+        for(int i = 0; i < 7; i++){
             Periods.add(Integer.toString(i + 1));
         }
     }

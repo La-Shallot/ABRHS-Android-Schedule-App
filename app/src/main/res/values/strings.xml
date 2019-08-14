@@ -1,16 +1,18 @@
 <resources>
     <string name="app_name">Prototype_Schedule</string>
-    <string name="set_up_blue_title"> Setup for Day Blue </string>
+    <string name="set_up_blue_title"> Day Blue </string>
+    <string name = "lunch_blue_title"> Day Blue Lunch </string>
+    <string name = "Lunch_blue_instructions"> Enter 1, 2, or 3 to indicate start, middle, or end lunch period </string>
     <string name="set_up_blue_instructions"> Please enter your schedule on the first day of school below </string>
-    <string name="period_1"> Period 1</string>
-    <string name="period_2"> Period 2</string>
-    <string name="period_3"> Period 3</string>
-    <string name="period_4"> Period 4</string>
-    <string name="period_5"> Period 5</string>
-    <string name="period_6"> Period 6</string>
-    <string name="period_7"> Period 7</string>
-    <string name="dropped"> Dropped Class</string>
+    <string name="period_1"> Period A</string>
+    <string name="period_2"> Period B</string>
+    <string name="period_3"> Period C</string>
+    <string name="period_4"> Period D</string>
+    <string name="period_5"> Period E</string>
+    <string name="period_6"> Period F</string>
+    <string name="period_7"> Period G</string>
     <string name="welcome"> Welcome </string>
     <string name="click"> Click to Continue </string>
+    <string name = "next"> Next </string>
 
 </resources>

@@ -4,6 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_margin="20dp"
+        style="@style/Setup_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway"
+        android:text="@string/lunch_blue_title" />
+
+    <TextView
+        style="@style/Instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "@string/Lunch_blue_instructions"
+        android:gravity="center"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -11,88 +26,77 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/Setup_Title"
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/raleway"
-                android:text="@string/set_up_blue_title" />
+                android:hint="@string/period_1"/>
 
-            <!--<TextView
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_2"/>
+
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_3"/>
+
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_4"/>
+
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_5"/>
+
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_6"/>
+
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/BL_Period7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_7"/>
+
+            <TextView
                 style="@style/Instructions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text = "@string/set_up_blue_instructions"
-                android:gravity="center"/>-->
-
-            <EditText
-                android:id="@+id/B_Period1"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_1" />
-
-            <EditText
-                android:id="@+id/B_Period2"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_2" />
-
-            <EditText
-                android:id="@+id/B_Period3"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_3" />
-
-            <EditText
-                android:id="@+id/B_Period4"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_4" />
-
-            <EditText
-                android:id="@+id/B_Period5"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_5" />
-
-            <EditText
-                android:id="@+id/B_Period6"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_6" />
-
-            <EditText
-                android:id="@+id/B_Period7"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/period_7" />
-
-            <TextView
-                android:id="@+id/blue_next"
-                style="@style/Instructions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="#ffffff"
-                android:clickable="true"
                 android:text="@string/next"
-                android:textAlignment="center" />
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:background="#ffffff"
+                android:id="@+id/blue_lunch_next"
+                android:clickable="true"/>
 
         </LinearLayout>
 
 
+
     </ScrollView>
+
+
+
 
 
 </LinearLayout>

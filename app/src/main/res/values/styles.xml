@@ -27,9 +27,9 @@
         <item name = "android:paddingRight"> 10dp </item>
         <item name = "android:paddingLeft"> 10dp </item>
         <item name = "android:paddingTop"> 30dp </item>
-        <item name = "android:paddingBottom"> 30dp </item>
-        <item name = "android:background"> @color/darkGray </item>
-        <item name = "android:textColor"> #ffffff </item>
+        <item name = "android:paddingBottom"> 20dp </item>
+        <!--<item name = "android:background"> @color/darkGray </item>-->
+        <item name = "android:textColor"> @color/darkGray </item>
     </style>
 
     <style name = "Title">
@@ -54,10 +54,10 @@
 
         <item name = "android:fontFamily"> @font/raleway </item>
         <item name = "android:textSize"> 20sp </item>
-        <item name="android:layout_marginTop"> 10dp </item>
-        <item name="android:layout_marginBottom"> 10dp </item>
+        <item name="android:layout_marginTop"> 25dp </item>
         <item name="android:layout_marginRight"> 20dp </item>
         <item name="android:layout_marginLeft"> 20dp </item>
+        <item name = "android:textAlignment"> center </item>
     </style>
 
 </resources>

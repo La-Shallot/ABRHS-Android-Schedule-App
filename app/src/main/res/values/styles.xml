@@ -60,4 +60,8 @@
         <item name = "android:textAlignment"> center </item>
     </style>
 
+    <style name = "Main_Theme" parent="Theme.AppCompat.Light">
+        <item name = "android:fontFamily"> @font/raleway</item>
+    </style>
+
 </resources>

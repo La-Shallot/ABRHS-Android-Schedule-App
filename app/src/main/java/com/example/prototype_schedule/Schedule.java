@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Schedule {
+    //DAY NUMs:
+    // 0 - G, 1 - F , 2 - E, 3 - D, 4 - C, 5 - B, 6 - A;
     private static final String TAG = "Schedule";
     private int[][] Days;
     private int[][] Alphabet_Days;
@@ -20,6 +22,9 @@ public class Schedule {
     //Bell Schedule
     //Format: [Period 1, Period 2, (Advisory) Period 3, Period 4, Lunch 1, Lunch 2, Lunch 3, Period 5, Period 6]
     String[] Regular = {"8:00", "9:00", "10:00", "11:03","12:52", "1:52"};
+    String[] Regular_1 = {"8:00", "9:00", "10:00", "11:03", "11:52","12:52", "1:52"};
+    String[] Regular_2 = {"8:00", "9:00", "10:00", "11:03", "11:35", "12:19","12:52", "1:52"};
+    String[] Regular_3 = {"8:00", "9:00", "10:00", "11:03", "12:03", "12:52", "1:52"};
 
     public Schedule(){
         Days = new int[12][31];
@@ -95,7 +100,7 @@ public class Schedule {
         Days[4][24] = -1;
 
         //Iterate through and assign days
-        int count = 0;
+        int count = 13;
         for(int month = 8; month < 12; month++){
             for(int day = 0; day < Days_of_Month[month]; day++){
                 if(Days[month][day]!= -1){
@@ -148,23 +153,75 @@ public class Schedule {
             //BLUE
             day_num = day_num % 7;
 
+            //conversion
+            day_num = dayNumtoarrayIndex(day_num);
+
             Classes = new ArrayList<String>(Arrays.asList(Arrays.copyOfRange(Blue_Classes, day_num, Blue_Classes.length)));
             for(int i = 0; i < day_num; i++){
                 Classes.add(Blue_Classes[i]);
+            }
+
+            switch (B_Lunch[day_num]){
+                case "1":
+                    Classes.add(3, "Lunch");
+                    break;
+                case "2":
+                    Classes.add(3, Blue_Classes[3]);
+                    Classes.add(4, "Lunch");
+                    break;
+                case "3":
+                    Classes.add(4, "Lunch");
+
             }
 
         }
         else{
             //GOLD
             day_num = day_num % 7;
+            //conversion
+            day_num = dayNumtoarrayIndex(day_num);
             Classes = new ArrayList<String>(Arrays.asList(Arrays.copyOfRange(Gold_Classes, day_num, Gold_Classes.length)));
             for(int i = 0; i < day_num; i++){
                 Classes.add(Gold_Classes[i]);
             }
+
+            switch (G_Lunch[day_num]){
+                case "1":
+                    Classes.add(3, "Lunch");
+                    break;
+                case "2":
+                    Classes.add(3, Gold_Classes[3]);
+                    Classes.add(4, "Lunch");
+                    break;
+                case "3":
+                    Classes.add(4, "Lunch");
+
+            }
         }
         //Drop Last Class
         Classes.remove(Classes.size() - 1);
+
+        //Add Lunch Periods
         return Classes;
+    }
+
+    private int dayNumtoarrayIndex (int dayNum){
+        return 6 - (dayNum % 7);
+    }
+
+    private String getLunchNum(int month, int day){
+        int dayNum = getDay(month, day);
+        dayNum = dayNumtoarrayIndex(dayNum);
+        boolean blue = false;
+        if(dayNum % 2 == 0){
+            blue = true;
+        }
+        if(blue){
+            return B_Lunch[dayNum];
+        }
+        else{
+            return G_Lunch[dayNum];
+        }
     }
 
     public void Print(){
@@ -179,6 +236,15 @@ public class Schedule {
 
     public ArrayList<String> getTimes(int month, int day){
         if(Days[month - 1][day - 1] == 0){
+
+            switch (getLunchNum(month, day)){
+                case "1":
+                    return new ArrayList<String>(Arrays.asList(Regular_1));
+                case "2":
+                    return new ArrayList<String>(Arrays.asList(Regular_2));
+                case "3":
+                    return new ArrayList<String>(Arrays.asList(Regular_3));
+            }
             return new ArrayList<String>(Arrays.asList(Regular));
         }
         else{
@@ -186,5 +252,26 @@ public class Schedule {
             return new ArrayList<String>(Arrays.asList(Regular));
         }
     }
+
+    public ArrayList<String> getPeriods(int month, int day){
+        ArrayList<String> result = new ArrayList<String>();
+        for(int i = 0; i < 7; i++){
+            result.add(Integer.toString(i + 1));
+        }
+        switch (getLunchNum(month, day)){
+            case "1":
+                result.add(3, "L");
+                break;
+            case "2":
+                result.add(4, "4");
+                result.add(4, "L");
+                break;
+            case "3":
+                result.add(4,"L");
+                break;
+        }
+        return result;
+    }
+
 
 }

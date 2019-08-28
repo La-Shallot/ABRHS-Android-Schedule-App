@@ -132,17 +132,14 @@ public class MainActivity extends AppCompatActivity {
         //FOR TESTING ONLY
         schedule.setClasses(Day_Blue_Classes, Day_Gold_Classes, Day_Blue_Lunches, Day_Gold_Lunches);
 
-        cur_month = 9;
-        cur_day = 3;
+        cur_month = 1;
+        cur_day = 8;
 
         //FOR TESTING ONLY
         Classes = schedule.getDayClasses(cur_month, cur_day);
+        Times = schedule.getTimes(cur_month,cur_day);
+        Periods = schedule.getPeriods(cur_month,cur_day);
 
-
-        Times = schedule.getTimes(cur_month, cur_day);
-        for (int i = 0; i < Classes.size(); i++) {
-            Periods.add(Integer.toString(i + 1));
-        }
         /*Classes = new ArrayList<>(Arrays.asList("Math", "English", "Free", "APUSH", "APChem", "Lunch", "Art"));
         Times = new ArrayList<>(Arrays.asList("09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"));
         for (int i = 0; i < 7; i++) {

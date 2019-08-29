@@ -58,9 +58,16 @@ public class MainActivity extends AppCompatActivity {
             InjecttestingData();
 
             //OLD SETTING UP STUFF
-            setContentView(R.layout.activity_main);
-            generateData();
-            setUpRecycler();
+            if(schedule.getDay(cur_month, cur_day) == -1){
+                //VACATION VIEWgrfth88
+            }
+            else{
+                //SCHOOL VIEW
+                setContentView(R.layout.activity_main);
+                generateData();
+                setUpRecycler();
+            }
+
         } else {
             setContentView(R.layout.hello);
             welcome = findViewById(R.id.click_hello);

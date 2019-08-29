@@ -1,7 +1,5 @@
 package com.example.prototype_schedule;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -25,6 +23,12 @@ public class Schedule {
     String[] Regular_1 = {"8:00", "9:00", "10:00", "11:03", "11:52","12:52", "1:52"};
     String[] Regular_2 = {"8:00", "9:00", "10:00", "11:03", "11:35", "12:19","12:52", "1:52"};
     String[] Regular_3 = {"8:00", "9:00", "10:00", "11:03", "12:03", "12:52", "1:52"};
+
+
+    String[] Advisory = {"8:00", "9:00", "10:00", "11:03","12:52", "1:52"};
+    String[] Advisory_1 = {"8:00", "9:00", "10:00", "11:03", "11:52","12:52", "1:52"};
+    String[] Advisory_2 = {"8:00", "9:00", "10:00", "11:03", "11:35", "12:19","12:52", "1:52"};
+    String[] Advisory_3 = {"8:00", "9:00", "10:00", "11:03", "12:03", "12:52", "1:52"};
 
     public Schedule(){
         Days = new int[12][31];
@@ -64,7 +68,7 @@ public class Schedule {
 
         //Holidays
         Days[8][1] = -1;
-        Days[8][30] = -1;
+        Days[8][29] = -1;
 
         Days[9][8] = -1;
         Days[9][13] = -1;
@@ -74,6 +78,7 @@ public class Schedule {
         Days[10][27] = -1;
         Days[10][28] = -1;
 
+        Days[11][22] = -1;
         Days[11][23] = -1;
         Days[11][24] = -1;
         Days[11][25] = -1;

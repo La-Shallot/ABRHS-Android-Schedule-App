@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,12 +21,14 @@ public class Schedule_Recycler_Adapter extends RecyclerView.Adapter<Schedule_Rec
     private ArrayList<String> mTimes;
     private ArrayList<String> mperiods;
     private Context mcontext;
+    private int viewHolderCount;
 
     public Schedule_Recycler_Adapter(ArrayList<String> mClasses, ArrayList<String> mTimes, ArrayList<String> mperiods, Context mcontext) {
         this.mClasses = mClasses;
         this.mTimes = mTimes;
         this.mperiods = mperiods;
         this.mcontext = mcontext;
+        viewHolderCount = 0;
     }
 
     @NonNull
@@ -33,12 +36,14 @@ public class Schedule_Recycler_Adapter extends RecyclerView.Adapter<Schedule_Rec
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
         RecyclerViewHolder viewholder = new RecyclerViewHolder(view);
+
+        viewholder.itemView.setBackgroundColor(Color_Picker(viewHolderCount));
+        viewHolderCount ++;
         return viewholder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: called");
 
         holder.classPeriod.setText(mperiods.get(position));
         holder.className.setText(mClasses.get(position));
@@ -61,5 +66,28 @@ public class Schedule_Recycler_Adapter extends RecyclerView.Adapter<Schedule_Rec
             classTime = itemView.findViewById(R.id.class_item_time);
             classPeriod = itemView.findViewById(R.id.class_item_period);
         }
+    }
+
+    private int Color_Picker(int position){
+        position = position % 5;
+        switch(position){
+            case 0:
+                return ContextCompat.getColor(mcontext, R.color.pastel_1);
+
+            case 1:
+                return ContextCompat.getColor(mcontext, R.color.pastel_2);
+
+            case 2:
+                return ContextCompat.getColor(mcontext, R.color.pastel_3);
+
+            case 3:
+                return ContextCompat.getColor(mcontext, R.color.pastel_4);
+
+            case 4:
+                return ContextCompat.getColor(mcontext, R.color.pastel_5);
+
+
+        }
+        return -1;
     }
 }

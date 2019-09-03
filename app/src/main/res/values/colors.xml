@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name = "darkGray">#343942</color>
+    <color name = "pastel_1"> #FFE9E1</color>
+    <color name = "pastel_2"> #FFE4ED </color>
+    <color name = "pastel_3"> #F1E4F8 </color>
+    <color name = "pastel_4"> #DEF1FF </color>
+    <color name = "pastel_5"> #DCFBFE </color>
+
 </resources>

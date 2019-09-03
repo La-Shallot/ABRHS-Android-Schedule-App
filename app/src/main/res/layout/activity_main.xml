@@ -7,7 +7,28 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <com.gigamole.navigationtabstrip.NavigationTabStrip
+        android:id="@+id/nts_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@color/darkGray"
+        app:nts_active_color="#fff"
+        app:nts_color="#ff1748"
+        app:nts_factor="2.8"
+        app:nts_corners_radius="1.5dp"
+        app:nts_inactive_color="#81ffffff"
+        app:nts_titles="@array/daysOfWeek"
+        app:nts_typeface="fonts/raleway"
+        app:nts_weight="3dp"
+        app:nts_type = "point"
+        app:nts_size="15dp"/>
+
+
+
+
+
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -51,7 +72,7 @@
             android:paddingRight = "16dp"
             android:paddingLeft = "16dp"
             android:text="English" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

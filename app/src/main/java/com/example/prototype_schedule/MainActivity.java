@@ -3,6 +3,7 @@ package com.example.prototype_schedule;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +13,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,22 +57,25 @@ public class MainActivity extends AppCompatActivity {
         Schedule schedule = new Schedule();
 
         if (sp.getBoolean(SETUP_STATUS, false)) {
-            //Change Later to LOAD data
-            retrieveClasses();
+            //Re-start setup
+            retrieve_and_setClasses();
+            setDayandMonth();
 
-            //FOR TESTING PURPOSES ONLY REMOVE FOR USE
-            InjecttestingData();
-
-            //OLD SETTING UP STUFF
-            if(schedule.getDay(cur_month, cur_day) == -1){
-                //VACATION VIEWgrfth88
+            //OLD SETTING UP STUFF(ONE_DAY VIEW)
+            /*if(schedule.getDay(cur_month, cur_day) == -1){
+                //VACATION VIEW
             }
             else{
                 //SCHOOL VIEW
                 setContentView(R.layout.activity_main);
                 generateData();
                 setUpRecycler();
-            }
+            }*/
+
+            //MULTI_DAY VIEW
+            setContentView(R.layout.activity_main);
+            generateData();
+            setUpNavBar();
 
         } else {
             setContentView(R.layout.hello);
@@ -74,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
             welcome.setOnClickListener(new Hello_Listener());
         }
     }
+
+    //MENUS MENUS
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -111,62 +122,76 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //SCHEDULE FUNCTIONS
+
     private void Refresh(){
-        retrieveClasses();
-        InjecttestingData();
+        retrieve_and_setClasses();
         setContentView(R.layout.activity_main);
         generateData();
-        setUpRecycler();
     }
 
-    private void InjecttestingData(){
+    /*private void InjecttestingData(){
         //Day_Gold_Classes = new String[]{"A","ABB", "B","A", "ABB", "AB", "A"};
         Day_Gold_Lunches = new String[]{"1","1", "1","1", "1", "1", "1"};
         //Day_Blue_Classes = new String[]{"CLASS ONE","CLASS TWO", "CLASS THREE","CLASS FOUR", "CLASS FIVE", "CLASS SIX", "CLASS SEVEN"};;
         Day_Blue_Lunches = new String[]{"1","1", "1","1", "1", "1", "1"};
-    }
+    }*/
 
-
-    private void ChangesetUpStatus(boolean b) {
-        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor spe = sp.edit();
-        spe.putBoolean(SETUP_STATUS, b);
-        spe.commit();
-    }
-
+    //get today
     private void generateData() {
-        setDayandMonth();
-        //FOR TESTING ONLY
-        schedule.setClasses(Day_Blue_Classes, Day_Gold_Classes, Day_Blue_Lunches, Day_Gold_Lunches);
-
-        cur_month = 1;
-        cur_day = 8;
-
-        //FOR TESTING ONLY
         Classes = schedule.getDayClasses(cur_month, cur_day);
         Times = schedule.getTimes(cur_month,cur_day);
         Periods = schedule.getPeriods(cur_month,cur_day);
 
-        /*Classes = new ArrayList<>(Arrays.asList("Math", "English", "Free", "APUSH", "APChem", "Lunch", "Art"));
-        Times = new ArrayList<>(Arrays.asList("09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"));
-        for (int i = 0; i < 7; i++) {
-            Periods.add(Integer.toString(i + 1));
-        }*/
+        Log.d(TAG, "generateData: " + schedule.getLunchNum(cur_month,cur_day));
+
+        Log.d(TAG, "generateData: " + Classes.size() + Times.size() + Periods.size());
+
+        for(int i = 0; i < Classes.size(); i++){
+            Log.d(TAG, "generateData: " + Classes.get(i) + " " + Times.get(i) + " " + Periods.get(i));
+        }
+
+        setUpRecycler(Classes, Times, Periods);
     }
 
-    private void setDayandMonth(){
-        Calendar calendar = Calendar.getInstance();
-        cur_day =  calendar.get(Calendar.DAY_OF_MONTH);
-        cur_month = calendar.get(Calendar.MONTH) + 1;
+    private void generateData(int day, int month, int dayofWeek) {
+        int[] Date = schedule.getDateofWeekday(month, day, dayofWeek);
+        Log.d(TAG, "generateData: getting" + Date[0] + " " + Date[1]);
+
+        Classes = schedule.getDayClasses(Date[0], Date[1]);
+        Times = schedule.getTimes(Date[0],Date[1]);
+        Periods = schedule.getPeriods(Date[0],Date[1]);
+
+        Log.d(TAG, "generateData: " + Classes.size() + Times.size() + Periods.size());
+
+        for(int i = 0; i < Classes.size(); i++){
+            Log.d(TAG, "generateData: " + Classes.get(i) + " " + Times.get(i) + " " + Periods.get(i));
+        }
+
+        setUpRecycler(Classes, Times, Periods);
     }
 
     //fix this for customizable
-    private void setUpRecycler() {
+    private void setUpRecycler(ArrayList<String> Classes, ArrayList<String> Times, ArrayList<String> Periods) {
         RecyclerView recyclerView = findViewById(R.id.recycler_schedule);
         Schedule_Recycler_Adapter sched = new Schedule_Recycler_Adapter(Classes, Times, Periods, getApplicationContext());
         recyclerView.setAdapter(sched);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
+    private void setDayandMonth(){
+        Calendar calendar = Calendar.getInstance();
+        cur_day =  calendar.get(Calendar.DAY_OF_MONTH);
+        cur_month = calendar.get(Calendar.MONTH) + 1;
+
+        cur_month = 9;
+        cur_day = 3;
+    }
+
+
+
+    //DATA SETTING AREA
 
     private void permaSaveClasses() {
         SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
@@ -178,12 +203,32 @@ public class MainActivity extends AppCompatActivity {
         spe.commit();
     }
 
-    private void retrieveClasses() {
+    private void retrieve_and_setClasses() {
         SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
         Day_Gold_Classes = sp.getString(GOLD_ACCESS_CODE, " ").split(SEPERATER);
         Day_Gold_Lunches = sp.getString(GOLD_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
-        Day_Blue_Classes = sp.getString(GOLD_ACCESS_CODE, " ").split(SEPERATER);
-        Day_Blue_Lunches = sp.getString(GOLD_ACCESS_CODE, " ").split(SEPERATER);
+        Day_Blue_Classes = sp.getString(BLUE_ACCESS_CODE, " ").split(SEPERATER);
+        Day_Blue_Lunches = sp.getString(BLUE_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
+        schedule.setClasses(Day_Blue_Classes, Day_Gold_Classes, Day_Blue_Lunches, Day_Gold_Lunches);
+        checkClasses();
+    }
+
+    private void checkClasses(){
+        for(String str:Day_Gold_Classes){
+            Log.d(TAG, "checkClasses: " + str);
+        }
+        Log.d(TAG, "checkClasses: ");
+        for(String str:Day_Blue_Classes){
+            Log.d(TAG, "checkClasses: " + str);
+        }
+    }
+
+
+    private void ChangesetUpStatus(boolean b) {
+        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor spe = sp.edit();
+        spe.putBoolean(SETUP_STATUS, b);
+        spe.commit();
     }
 
     private String concat_Classes(String[] Classes) {
@@ -210,6 +255,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //NAVIGATION SETUP
 
+    private void setUpNavBar(){
+        NavigationTabStrip navbar = (NavigationTabStrip) findViewById(R.id.nts_top);
+        navbar.setOnTabStripSelectedIndexListener(new NTS_Listener());
+        if(schedule.getDayofWeek(cur_month, cur_day) < 5){
+            //weekday, find day and place dot
+            navbar.setTabIndex(schedule.getDayofWeek(cur_month, cur_day));
+        }
+        else{
+            navbar.setTabIndex(0);
+        }
+    }
+
+        class NTS_Listener implements NavigationTabStrip.OnTabStripSelectedIndexListener{
+            @Override
+            public void onStartTabSelected(String s, int index) {
+                generateData(cur_day, cur_month, index);
+                Log.d(TAG, "onEndTabSelected: " + index);
+            }
+            @Override
+            public void onEndTabSelected(String s, int index) {
+
+
+            }
+        }
 
 }

@@ -158,21 +158,22 @@ public class Schedule {
 
     public int[] getDateofWeekday(int month, int day, int DayofWeek){
         //GET day number from the week
-        month --;
-        day --;
+        //month and day are their normal values
+        //days of the week go form 0 = monday to 6 - Sunday
         int curWeekday = getDayofWeek(month, day);
         if(curWeekday >  DayofWeek){
+            //move backwards
             for(int i = 0; i < curWeekday - DayofWeek; i++){
-                if(day == 0){
+                if(day == 1){
                     //overflow into last month
-                    if(month == 0){
+                    if(month == 1){
                         //overflow into last year
-                        month = 11;
-                        day = 30;
+                        month = 12;
+                        day = 31;
                     }
                     else{
                         month --;
-                        day = Days_of_Month[month] - 1;
+                        day = Days_of_Month[month];
                     }
                 }
                 else{
@@ -183,16 +184,16 @@ public class Schedule {
         else{
             //add until get to weekday
             for(int i = 0; i < DayofWeek - curWeekday; i++){
-                if(day == Days_of_Month[month] - 1){
+                if(day == Days_of_Month[month]){
                     //overflow into next month
-                    if(month == 11){
+                    if(month == 12){
                         //overflow into next year
-                        month = 0;
-                        day = 0;
+                        month = 1;
+                        day = 1;
                     }
                     else{
                         month ++;
-                        day = 0;
+                        day = 1;
                     }
                 }
                 else{
@@ -200,7 +201,7 @@ public class Schedule {
                 }
             }
         }
-        return new int[] {month + 1, day + 1};
+        return new int[] {month, day};
     }
 
     public ArrayList<String> getDayClasses(int month, int day){
@@ -346,13 +347,35 @@ public class Schedule {
         //MONDAY START AT 0
         Calendar calendar = Calendar.getInstance();
         if(month < 8){
-            calendar.set(2020, month, day);
+            calendar.set(2020, month - 1, day);
         }
         else{
-            calendar.set(2019, month, day);
+            calendar.set(2019, month - 1, day);
         }
 
-        return (calendar.get(Calendar.DAY_OF_WEEK)  - 1) % 7;
+        return (calendar.get(Calendar.DAY_OF_WEEK)  - 2) % 7;
+    }
+
+    public boolean hasSchool(int month, int day){
+        int dayNum = getDay(month, day);
+        if(dayNum != -1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public int room_to_lunch(String room){
+        String wing = room.substring(room.length() - 1);
+        int floor = Character.getNumericValue(room.charAt(0));
+        if(floor == 1){
+            //first floor
+        }
+        else{
+            //second floor
+        }
+        return -1;
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.prototype_schedule;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ public class Schedule_Recycler_Adapter extends RecyclerView.Adapter<Schedule_Rec
     private ArrayList<String> mperiods;
     private Context mcontext;
     private int viewHolderCount;
+    private int lastColor;
 
     public Schedule_Recycler_Adapter(ArrayList<String> mClasses, ArrayList<String> mTimes, ArrayList<String> mperiods, Context mcontext) {
         this.mClasses = mClasses;
@@ -68,26 +70,31 @@ public class Schedule_Recycler_Adapter extends RecyclerView.Adapter<Schedule_Rec
         }
     }
 
-    private int Color_Picker(int position){
+    public int Color_Picker(int position){
         position = position % 5;
         switch(position){
             case 0:
-                return ContextCompat.getColor(mcontext, R.color.pastel_1);
+                lastColor = ContextCompat.getColor(mcontext, R.color.pastel_1);
+                break;
+
 
             case 1:
-                return ContextCompat.getColor(mcontext, R.color.pastel_2);
+                lastColor = ContextCompat.getColor(mcontext, R.color.pastel_2);
+                break;
 
             case 2:
-                return ContextCompat.getColor(mcontext, R.color.pastel_3);
+                lastColor = ContextCompat.getColor(mcontext, R.color.pastel_3);
+                break;
 
             case 3:
-                return ContextCompat.getColor(mcontext, R.color.pastel_4);
+                lastColor = ContextCompat.getColor(mcontext, R.color.pastel_4);
+                break;
 
             case 4:
-                return ContextCompat.getColor(mcontext, R.color.pastel_5);
-
+                lastColor = ContextCompat.getColor(mcontext, R.color.pastel_5);
+                break;
 
         }
-        return -1;
+        return lastColor;
     }
 }

@@ -5,12 +5,15 @@
         android:id="@+id/reset"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
-        android:title="Reset"/>
+        android:title="Reset"
+        android:icon="@drawable/setting_icon"
+        />
 
     <item
         android:id="@+id/refresh"
         android:orderInCategory="2"
         app:showAsAction="ifRoom"
-        android:title="Refresh"/>
+        android:title="Refresh"
+        android:icon="@drawable/refresh_icon"/>
 
 </menu>

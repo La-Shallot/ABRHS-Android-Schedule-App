@@ -3,24 +3,24 @@ package com.example.prototype_schedule;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> Times = new ArrayList<>();
     private ArrayList<String> Periods = new ArrayList<>();
     private LinearLayout welcome;
+    private LinearLayout main_layout;
 
     private final int SETUP_ACCESS_CODE = 1111;
     private final String BLUE_ACCESS_CODE = "blue";
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             //MULTI_DAY VIEW
             setContentView(R.layout.activity_main);
+            main_layout = (LinearLayout) findViewById(R.id.main_Activity);
             generateData();
             setUpNavBar();
 
@@ -155,20 +157,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateData(int day, int month, int dayofWeek) {
+
         int[] Date = schedule.getDateofWeekday(month, day, dayofWeek);
         Log.d(TAG, "generateData: getting" + Date[0] + " " + Date[1]);
+        if(schedule.hasSchool(Date[0], Date[1])){
+            //school + recycler view
+            setMainDisplay(true);
+            Classes = schedule.getDayClasses(Date[0], Date[1]);
+            Times = schedule.getTimes(Date[0],Date[1]);
+            Periods = schedule.getPeriods(Date[0],Date[1]);
 
-        Classes = schedule.getDayClasses(Date[0], Date[1]);
-        Times = schedule.getTimes(Date[0],Date[1]);
-        Periods = schedule.getPeriods(Date[0],Date[1]);
+            Log.d(TAG, "generateData: " + Classes.size() + Times.size() + Periods.size());
 
-        Log.d(TAG, "generateData: " + Classes.size() + Times.size() + Periods.size());
+            for(int i = 0; i < Classes.size(); i++){
+                Log.d(TAG, "generateData: " + Classes.get(i) + " " + Times.get(i) + " " + Periods.get(i));
+            }
 
-        for(int i = 0; i < Classes.size(); i++){
-            Log.d(TAG, "generateData: " + Classes.get(i) + " " + Times.get(i) + " " + Periods.get(i));
+            setUpRecycler(Classes, Times, Periods);
+
+        }
+        else{
+            //No school + text view
+            setMainDisplay(false);
+
         }
 
-        setUpRecycler(Classes, Times, Periods);
     }
 
     //fix this for customizable
@@ -177,6 +190,10 @@ public class MainActivity extends AppCompatActivity {
         Schedule_Recycler_Adapter sched = new Schedule_Recycler_Adapter(Classes, Times, Periods, getApplicationContext());
         recyclerView.setAdapter(sched);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Log.d(TAG, "setUpRecycler: REACH");
+        int Color = sched.Color_Picker(sched.getItemCount() - 1);
+        main_layout.setBackgroundColor(Color);
+        Log.d(TAG, "setUpRecycler: " + Color);
     }
 
 
@@ -185,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
         cur_day =  calendar.get(Calendar.DAY_OF_MONTH);
         cur_month = calendar.get(Calendar.MONTH) + 1;
 
-        cur_month = 9;
-        cur_day = 3;
+        /*cur_month = 9;
+        cur_day = 3;*/
     }
 
 
@@ -260,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpNavBar(){
         NavigationTabStrip navbar = (NavigationTabStrip) findViewById(R.id.nts_top);
         navbar.setOnTabStripSelectedIndexListener(new NTS_Listener());
+        //month incremented to meet JANUARY starting at 0 for Calendar library
         if(schedule.getDayofWeek(cur_month, cur_day) < 5){
             //weekday, find day and place dot
             navbar.setTabIndex(schedule.getDayofWeek(cur_month, cur_day));
@@ -281,5 +299,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
+        private void setMainDisplay(boolean school){
+            //school = 1 --> class list view
+            //school = 0 --> no class view
+            RecyclerView class_list = findViewById(R.id.recycler_schedule);
+            TextView no_class_view = findViewById(R.id.no_school_textview);
+            if(school){
+                //class list
+                class_list.setVisibility(class_list.VISIBLE);
+                no_class_view.setVisibility(no_class_view.GONE);
+            }
+            else{
+                no_class_view.setVisibility(no_class_view.VISIBLE);
+                class_list.setVisibility(class_list.GONE);
+            }
+        }
+
 
 }

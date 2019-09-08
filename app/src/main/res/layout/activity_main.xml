@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id = "@+id/main_Activity">
 
     <com.gigamole.navigationtabstrip.NavigationTabStrip
         android:id="@+id/nts_top"
@@ -79,6 +80,19 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:id = "@+id/recycler_schedule"/>
+
+
+
+    <TextView
+        android:id="@+id/no_school_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Class"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="40dp"/>
+
+
 
 
 </LinearLayout>

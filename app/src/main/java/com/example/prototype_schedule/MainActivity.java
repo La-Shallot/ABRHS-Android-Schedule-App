@@ -76,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
             //MULTI_DAY VIEW
             setContentView(R.layout.activity_main);
             main_layout = (LinearLayout) findViewById(R.id.main_Activity);
-            generateData();
+
             setUpNavBar();
+            //generateData();
 
         } else {
             setContentView(R.layout.hello);
@@ -129,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
     private void Refresh(){
         retrieve_and_setClasses();
         setContentView(R.layout.activity_main);
+        setDayandMonth();
+        setUpNavBar();
         generateData();
     }
 
@@ -141,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     //get today
     private void generateData() {
+
         Classes = schedule.getDayClasses(cur_month, cur_day);
         Times = schedule.getTimes(cur_month,cur_day);
         Periods = schedule.getPeriods(cur_month,cur_day);
@@ -155,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         setUpRecycler(Classes, Times, Periods);
     }
-
+    //get specific day
     private void generateData(int day, int month, int dayofWeek) {
 
         int[] Date = schedule.getDateofWeekday(month, day, dayofWeek);
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         cur_month = calendar.get(Calendar.MONTH) + 1;
 
         /*cur_month = 9;
-        cur_day = 3;*/
+        cur_day = 9;*/
     }
 
 
@@ -267,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                 Day_Blue_Lunches = data.getStringArrayExtra("Blue_Lunch");
                 ChangesetUpStatus(true);
                 permaSaveClasses();
-                Refresh();
+                //Refresh();
             }
         }
     }
@@ -290,7 +294,15 @@ public class MainActivity extends AppCompatActivity {
         class NTS_Listener implements NavigationTabStrip.OnTabStripSelectedIndexListener{
             @Override
             public void onStartTabSelected(String s, int index) {
-                generateData(cur_day, cur_month, index);
+                if(schedule.getDayofWeek(cur_month, cur_day) < 5){
+                    //weekday, find day and place dot
+                    generateData(cur_day, cur_month, index);
+                }
+                else{
+                    //fast forward to next week
+                    generateData(cur_day + 3, cur_month, index);
+                }
+
                 Log.d(TAG, "onEndTabSelected: " + index);
             }
             @Override

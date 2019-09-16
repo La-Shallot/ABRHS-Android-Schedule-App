@@ -209,12 +209,12 @@ public class Schedule {
         int day_num = this.getDay(month, day);
         String[] Class_List, Lunch_List;
         if(day_num % 2 == 0){
-            Class_List = Blue_Classes;
-            Lunch_List = B_Lunch;
-        }
-        else{
             Class_List = Gold_Classes;
             Lunch_List = G_Lunch;
+        }
+        else{
+            Class_List = Blue_Classes;
+            Lunch_List = B_Lunch;
         }
 
         day_num = day_num % 7;

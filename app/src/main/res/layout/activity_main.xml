@@ -8,26 +8,45 @@
     tools:context=".MainActivity"
     android:id = "@+id/main_Activity">
 
-    <com.gigamole.navigationtabstrip.NavigationTabStrip
-        android:id="@+id/nts_top"
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@color/darkGray"
-        app:nts_active_color="#fff"
-        app:nts_color="#ff1748"
-        app:nts_factor="2.8"
-        app:nts_corners_radius="1.5dp"
-        app:nts_inactive_color="#81ffffff"
-        app:nts_titles="@array/daysOfWeek"
-        app:nts_typeface="fonts/raleway"
-        app:nts_weight="3dp"
-        app:nts_type = "point"
-        app:nts_size="15dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <ImageButton
+            android:id = "@+id/last_week_button"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/left_key"
+            android:background="@color/darkGray"/>
 
+        <com.gigamole.navigationtabstrip.NavigationTabStrip
+            android:id="@+id/nts_top"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/darkGray"
+            app:nts_active_color="#fff"
+            app:nts_color="#ff1748"
+            app:nts_factor="2.8"
+            app:nts_corners_radius="1.5dp"
+            app:nts_inactive_color="#81ffffff"
+            app:nts_titles="@array/daysOfWeek"
+            app:nts_typeface="fonts/raleway"
+            app:nts_weight="3dp"
+            app:nts_type = "point"
+            app:nts_size="15dp"/>
 
+        <ImageButton
+            android:id = "@+id/next_week_button"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/right_ley"
+            android:background="@color/darkGray"/>
 
+    </LinearLayout>
 
     <!--<RelativeLayout
         android:layout_width="match_parent"

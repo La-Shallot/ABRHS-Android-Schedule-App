@@ -8,12 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 
@@ -34,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> Periods = new ArrayList<>();
     private LinearLayout welcome;
     private LinearLayout main_layout;
+    private ImageButton last, next;
 
     private final int SETUP_ACCESS_CODE = 1111;
     private final String BLUE_ACCESS_CODE = "blue";
@@ -48,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private String[] Day_Gold_Classes = new String[7];
     private String[] Day_Gold_Lunches;
 
-    private int cur_month, cur_day;
     private Schedule schedule = new Schedule();
+    WeekCalender weekCalender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,25 +59,18 @@ public class MainActivity extends AppCompatActivity {
         if (sp.getBoolean(SETUP_STATUS, false)) {
             //Re-start setup
             retrieve_and_setClasses();
-            setDayandMonth();
 
-            //OLD SETTING UP STUFF(ONE_DAY VIEW)
-            /*if(schedule.getDay(cur_month, cur_day) == -1){
-                //VACATION VIEW
-            }
-            else{
-                //SCHOOL VIEW
-                setContentView(R.layout.activity_main);
-                generateData();
-                setUpRecycler();
-            }*/
+            weekCalender = new WeekCalender();
+
 
             //MULTI_DAY VIEW
             setContentView(R.layout.activity_main);
             main_layout = (LinearLayout) findViewById(R.id.main_Activity);
 
+
             setUpNavBar();
-            //generateData();
+            setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
+            generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
 
         } else {
             setContentView(R.layout.hello);
@@ -125,44 +117,41 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class Move_Listener implements  View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if(view.getId() == R.id.next_week_button){
+                //update to next week
+                int[] Date = weekCalender.getMonday();
+                weekCalender.setDay(Date[0], Date[1], 7);
+                Log.d(TAG, "onClick: " + weekCalender.getCur_day() + weekCalender.getCur_month());
+                Refresh();
+            }
+            if(view.getId() == R.id.last_week_button){
+                //update to last week
+                int[] Date = weekCalender.getMonday();
+                Log.d(TAG, "onClick: xx" + weekCalender.getCur_day() + weekCalender.getCur_month());
+                weekCalender.setDay(Date[0], Date[1], -7);
+                Log.d(TAG, "onClick: " + weekCalender.getCur_day() + weekCalender.getCur_month());
+                Refresh();
+            }
+        }
+    }
+
     //SCHEDULE FUNCTIONS
 
     private void Refresh(){
         retrieve_and_setClasses();
         setContentView(R.layout.activity_main);
-        setDayandMonth();
         setUpNavBar();
-        generateData();
+        generateData(weekCalender.cur_month, weekCalender.getCur_day());
     }
 
-    /*private void InjecttestingData(){
-        //Day_Gold_Classes = new String[]{"A","ABB", "B","A", "ABB", "AB", "A"};
-        Day_Gold_Lunches = new String[]{"1","1", "1","1", "1", "1", "1"};
-        //Day_Blue_Classes = new String[]{"CLASS ONE","CLASS TWO", "CLASS THREE","CLASS FOUR", "CLASS FIVE", "CLASS SIX", "CLASS SEVEN"};;
-        Day_Blue_Lunches = new String[]{"1","1", "1","1", "1", "1", "1"};
-    }*/
+    //get "today"
+    //generate by month and day
+    private void generateData(int month, int day) {
 
-    //get today
-    private void generateData() {
-
-        Classes = schedule.getDayClasses(cur_month, cur_day);
-        Times = schedule.getTimes(cur_month,cur_day);
-        Periods = schedule.getPeriods(cur_month,cur_day);
-
-        Log.d(TAG, "generateData: " + schedule.getLunchNum(cur_month,cur_day));
-
-        Log.d(TAG, "generateData: " + Classes.size() + Times.size() + Periods.size());
-
-        for(int i = 0; i < Classes.size(); i++){
-            Log.d(TAG, "generateData: " + Classes.get(i) + " " + Times.get(i) + " " + Periods.get(i));
-        }
-
-        setUpRecycler(Classes, Times, Periods);
-    }
-    //get specific day
-    private void generateData(int day, int month, int dayofWeek) {
-
-        int[] Date = schedule.getDateofWeekday(month, day, dayofWeek);
+        int[] Date = {month, day};
         Log.d(TAG, "generateData: getting" + Date[0] + " " + Date[1]);
         if(schedule.hasSchool(Date[0], Date[1])){
             //school + recycler view
@@ -199,18 +188,6 @@ public class MainActivity extends AppCompatActivity {
         main_layout.setBackgroundColor(Color);
         Log.d(TAG, "setUpRecycler: " + Color);
     }
-
-
-    private void setDayandMonth(){
-        Calendar calendar = Calendar.getInstance();
-        cur_day =  calendar.get(Calendar.DAY_OF_MONTH);
-        cur_month = calendar.get(Calendar.MONTH) + 1;
-
-        /*cur_month = 9;
-        cur_day = 9;*/
-    }
-
-
 
     //DATA SETTING AREA
 
@@ -281,28 +258,32 @@ public class MainActivity extends AppCompatActivity {
     private void setUpNavBar(){
         NavigationTabStrip navbar = (NavigationTabStrip) findViewById(R.id.nts_top);
         navbar.setOnTabStripSelectedIndexListener(new NTS_Listener());
+
+        //set up week buttons
+        last = findViewById(R.id.last_week_button);
+        next = findViewById(R.id.next_week_button);
+        last.setOnClickListener(new Move_Listener());
+        next.setOnClickListener(new Move_Listener());
+
+
         //month incremented to meet JANUARY starting at 0 for Calendar library
-        if(schedule.getDayofWeek(cur_month, cur_day) < 5){
+        if(schedule.getDayofWeek(weekCalender.getCur_month(), weekCalender.getCur_day()) < 5){
             //weekday, find day and place dot
-            navbar.setTabIndex(schedule.getDayofWeek(cur_month, cur_day));
+            navbar.setTabIndex(schedule.getDayofWeek(weekCalender.getCur_month(), weekCalender.getCur_day()));
+            generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
+            setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
         }
-        else{
-            navbar.setTabIndex(0);
-        }
+        //should not go here
+        Log.d(TAG, "setUpNavBar: AIYO");
     }
 
         class NTS_Listener implements NavigationTabStrip.OnTabStripSelectedIndexListener{
             @Override
             public void onStartTabSelected(String s, int index) {
-                if(schedule.getDayofWeek(cur_month, cur_day) < 5){
-                    //weekday, find day and place dot
-                    generateData(cur_day, cur_month, index);
-                }
-                else{
-                    //fast forward to next week
-                    generateData(cur_day + 3, cur_month, index);
-                }
-
+                //set day to monday
+                weekCalender.setToDayofWeek(index);
+                generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
+                setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
                 Log.d(TAG, "onEndTabSelected: " + index);
             }
             @Override

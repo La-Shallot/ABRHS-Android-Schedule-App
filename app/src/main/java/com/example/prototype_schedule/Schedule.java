@@ -161,29 +161,15 @@ public class Schedule {
         //month and day are their normal values
         //days of the week go form 0 = monday to 6 - Sunday
         int curWeekday = getDayofWeek(month, day);
-        if(curWeekday >  DayofWeek){
-            //move backwards
-            for(int i = 0; i < curWeekday - DayofWeek; i++){
-                if(day == 1){
-                    //overflow into last month
-                    if(month == 1){
-                        //overflow into last year
-                        month = 12;
-                        day = 31;
-                    }
-                    else{
-                        month --;
-                        day = Days_of_Month[month];
-                    }
-                }
-                else{
-                    day --;
-                }
-            }
-        }
-        else{
-            //add until get to weekday
-            for(int i = 0; i < DayofWeek - curWeekday; i++){
+        int difference = DayofWeek - curWeekday;
+        return fastForward(month, day, difference);
+    }
+
+    public int[] fastForward(int month, int day, int days_forward){
+        //method that takes a date and returns the day "days forward" later
+        //month and day are normal notation
+        if(days_forward > 0){
+            for(int i = 0; i < days_forward; i++){
                 if(day == Days_of_Month[month]){
                     //overflow into next month
                     if(month == 12){
@@ -200,6 +186,26 @@ public class Schedule {
                     day ++;
                 }
             }
+        }
+        if(days_forward < 0){
+            for(int i = 0; i < Math.abs(days_forward); i++){
+                if(day == 1){
+                    //overflow into last month
+                    if(month == 1){
+                        //overflow into last year
+                        month = 12;
+                        day = 31;
+                    }
+                    else{
+                        month --;
+                        day = Days_of_Month[month];
+                    }
+                }
+                else{
+                    day --;
+                }
+            }
+
         }
         return new int[] {month, day};
     }

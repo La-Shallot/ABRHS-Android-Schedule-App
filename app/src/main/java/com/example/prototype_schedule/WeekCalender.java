@@ -1,5 +1,7 @@
 package com.example.prototype_schedule;
 
+import android.util.Log;
+
 import com.example.prototype_schedule.Schedule;
 
 import java.util.Calendar;
@@ -8,6 +10,7 @@ public class WeekCalender {
 
     int cur_day, cur_month;
     Schedule schedule;
+    private static final String TAG = "WeekCalender";
 
     public WeekCalender(int month, int day){
         cur_day = day;
@@ -82,9 +85,11 @@ public class WeekCalender {
 
     public void setToDayofWeek(int dayOfWeek){
         int[] Date = schedule.getDateofWeekday(cur_month,cur_day,0);
+        Log.d(TAG, "setToDayofWeek: " + Date[0] + Date[1]);
         Date = schedule.fastForward(Date[0], Date[1], dayOfWeek);
         cur_month = Date[0];
         cur_day = Date[1];
+        Log.d(TAG, "setToDayofWeek: " + cur_day + cur_month);
     }
 
     public int getCur_day(){

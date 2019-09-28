@@ -2,31 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:padding="16dp"
+    android:background="@color/darkGray"
     >
-   <TextView
-       style="@style/ClassStyle"
-       android:text="1"
-       android:paddingRight="30dp"
-       android:paddingLeft="20dp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/class_item_period"/>
-
-    <TextView
-        style="@style/ClassStyle"
-        android:layout_toRightOf="@id/class_item_period"
-       android:id="@+id/class_item_time"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text = "XX:XX"/>
-
-    <TextView
-        style="@style/ClassStyle"
-        android:paddingLeft="40dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/class_item_name"
-        android:text="English"
-        android:layout_toRightOf="@+id/class_item_time"/>
+        android:orientation="horizontal">
+
+         <TextView
+            android:textColor="@color/pastel_4"
+            style="@style/ClassStyle"
+            android:text="1"
+           android:gravity="center"
+            android:layout_width="0dp"
+             android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:id="@+id/class_item_period"/>
+
+        <TextView
+            android:textColor="@color/pastel_4"
+            android:gravity="center"
+            style="@style/ClassStyle"
+            android:layout_toRightOf="@id/class_item_period"
+            android:id="@+id/class_item_time"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:text = "XX:XX"/>
+
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/pastel_4"
+            style="@style/ClassStyle"
+
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:id="@+id/class_item_name"
+            android:text="English"
+            android:layout_toRightOf="@+id/class_item_time"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

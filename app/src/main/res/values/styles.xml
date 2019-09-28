@@ -60,8 +60,13 @@
         <item name = "android:textAlignment"> center </item>
     </style>
 
-    <style name = "Main_Theme" parent="Theme.AppCompat.Light">
+    <style name = "Main_Theme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name = "android:fontFamily"> @font/raleway</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/darkGray</item>
+        <item name = "android:textColor"> #ffffff </item>
     </style>
 
 </resources>

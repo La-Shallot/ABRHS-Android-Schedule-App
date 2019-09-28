@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
         Schedule schedule = new Schedule();
+        //ActionBar actionBar = getActionBar();
+
 
         if (sp.getBoolean(SETUP_STATUS, false)) {
             //Re-start setup
@@ -184,9 +188,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(sched);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG, "setUpRecycler: REACH");
-        int Color = sched.Color_Picker(sched.getItemCount() - 1);
-        main_layout.setBackgroundColor(Color);
-        Log.d(TAG, "setUpRecycler: " + Color);
+       /* int Color = sched.Color_Picker(sched.getItemCount() - 1);*/
+        main_layout.setBackgroundColor(0x343942);
+        //Log.d(TAG, "setUpRecycler: " + Color);
     }
 
     //DATA SETTING AREA
@@ -273,8 +277,12 @@ public class MainActivity extends AppCompatActivity {
             generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
             setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
         }
-        //should not go here
-        Log.d(TAG, "setUpNavBar: AIYO");
+        else{
+            //should not go here
+            Log.d(TAG, "setUpNavBar: AIYO");
+        }
+
+
     }
 
         class NTS_Listener implements NavigationTabStrip.OnTabStripSelectedIndexListener{
@@ -282,9 +290,10 @@ public class MainActivity extends AppCompatActivity {
             public void onStartTabSelected(String s, int index) {
                 //set day to monday
                 weekCalender.setToDayofWeek(index);
+                Log.d(TAG, "onEndTabSelected: " + index + "Day generated" + weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
                 generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
                 setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
-                Log.d(TAG, "onEndTabSelected: " + index);
+
             }
             @Override
             public void onEndTabSelected(String s, int index) {

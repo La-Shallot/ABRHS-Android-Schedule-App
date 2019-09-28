@@ -27,9 +27,9 @@ public class Schedule {
 
 
     String[] Advisory = {"8:00", "9:00", "10:00", "11:03","12:52", "1:52"};
-    String[] Advisory_1 = {"8:00", "9:00", "9:56","10:00", "11:03", "11:52","12:52", "1:52"};
-    String[] Advisory_2 = {"8:00", "9:00", "9:56", "10:00", "11:03", "11:35", "12:19","12:52", "1:52"};
-    String[] Advisory_3 = {"8:00", "9:00", "9:56", "10:00", "11:03", "12:03", "12:52", "1:52"};
+    String[] Advisory_1 = {"8:00", "8:58", "9:56","10:16", "11:15", "12:00","12:58", "1:55"};
+    String[] Advisory_2 = {"8:00", "8:58", "9:56","10:16", "11:15", "11:46", "12:26","12:58", "1:55"};
+    String[] Advisory_3 = {"8:00", "8:58", "9:56","10:16", "11:15", "12:13","12:58", "1:55"};
 
     public Schedule(){
         Days = new int[12][31];
@@ -170,7 +170,8 @@ public class Schedule {
         //month and day are normal notation
         if(days_forward > 0){
             for(int i = 0; i < days_forward; i++){
-                if(day == Days_of_Month[month]){
+                // month - 1 becaues arrays start at 0
+                if(day == Days_of_Month[month - 1]){
                     //overflow into next month
                     if(month == 12){
                         //overflow into next year
@@ -198,7 +199,7 @@ public class Schedule {
                     }
                     else{
                         month --;
-                        day = Days_of_Month[month];
+                        day = Days_of_Month[month - 1];
                     }
                 }
                 else{

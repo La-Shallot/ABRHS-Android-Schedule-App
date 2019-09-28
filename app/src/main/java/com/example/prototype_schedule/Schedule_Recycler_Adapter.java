@@ -38,8 +38,12 @@ public class Schedule_Recycler_Adapter extends RecyclerView.Adapter<Schedule_Rec
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
         RecyclerViewHolder viewholder = new RecyclerViewHolder(view);
-
-        viewholder.itemView.setBackgroundColor(Color_Picker(viewHolderCount));
+        TextView tv = viewholder.itemView.findViewById(R.id.class_item_period);
+        tv.setTextColor(Color_Picker(viewHolderCount));
+        tv = viewholder.itemView.findViewById(R.id.class_item_time);
+        tv.setTextColor(Color_Picker(viewHolderCount));
+        tv = viewholder.itemView.findViewById(R.id.class_item_name);
+        tv.setTextColor(Color_Picker(viewHolderCount));
         viewHolderCount ++;
         return viewholder;
     }

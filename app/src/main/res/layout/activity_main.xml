@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:id = "@+id/main_Activity">
+    android:id = "@+id/main_Activity"
+    android:background="@color/darkGray">
 
     <LinearLayout
 
@@ -48,53 +49,8 @@
 
     </LinearLayout>
 
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorAccent">
-
-        <TextView
-            android:id="@+id/current_period"
-            style="@style/currentClassStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize = "80sp"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:text="1" />
-
-        <TextView
-            android:id="@+id/current_time"
-            style="@style/currentClassStyle"
-            android:layout_toRightOf="@id/current_period"
-            android:layout_alignParentTop="true"
-            android:textSize = "45sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp"
-            android:paddingTop = "20dp"
-            android:text="XX:XX" />
-
-
-
-        <TextView
-            android:id="@+id/current_name"
-            style="@style/currentClassStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/current_period"
-            android:layout_below="@id/current_time"
-            android:paddingRight = "16dp"
-            android:paddingLeft = "16dp"
-            android:text="English" />
-    </RelativeLayout>-->
-
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/darkGray"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
@@ -109,6 +65,7 @@
         android:text="No Class"
         android:gravity="center"
         android:visibility="gone"
+        android:textColor="@color/pastel_4"
         android:textSize="40dp"/>
 
 

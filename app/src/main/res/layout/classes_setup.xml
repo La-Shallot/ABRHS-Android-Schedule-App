@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:text="Day Blue"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/B_Period1"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_1" />
+
+            <EditText
+                android:id="@+id/B_Period2"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_2" />
+
+            <EditText
+                android:id="@+id/B_Period3"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_3" />
+
+            <EditText
+                android:id="@+id/B_Period4"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_4" />
+
+            <EditText
+                android:id="@+id/B_Period5"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_5" />
+
+            <EditText
+                android:id="@+id/B_Period6"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_6" />
+
+            <EditText
+                android:id="@+id/B_Period7"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_7" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:text="Day Gold"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/G_Period1"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_1" />
+
+            <EditText
+                android:id="@+id/G_Period2"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_2" />
+
+            <EditText
+                android:id="@+id/G_Period3"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_3" />
+
+            <EditText
+                android:id="@+id/G_Period4"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_4" />
+
+            <EditText
+                android:id="@+id/G_Period5"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_5" />
+
+            <EditText
+                android:id="@+id/G_Period6"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_6" />
+
+            <EditText
+                android:id="@+id/G_Period7"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_7" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text = "Done"
+        style="@style/smallerTitleDark"
+        android:clickable="true"
+        android:id="@+id/class_next_button"/>
+
+
+</LinearLayout>

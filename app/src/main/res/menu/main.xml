@@ -18,6 +18,7 @@
 
     <item
         android:id="@+id/refresh"
+        android:visible="false"
         android:orderInCategory="3"
         app:showAsAction="ifRoom"
         android:title="Refresh"

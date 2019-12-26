@@ -20,6 +20,17 @@
         <item name = "android:fontFamily"> @font/raleway </item>
     </style>
 
+    <style name = "smallerTitleDark">
+        <item name = "android:textColor"> #ffffff</item>
+        <item name = "android:fontFamily"> @font/raleway</item>
+        <item name = "android:textSize"> 20sp</item>
+        <item name = "android:backgroundTint">#ffffff</item>
+        <item name = "android:textAlignment">center</item>
+        <item name = "android:textColorHint"> #A3A3A3</item>
+        <item name = "android:layout_margin"> 10dp</item>
+        <item name = "android:layout_weight">1</item>
+    </style>
+
     <style name = "Setup_Title">
         <item name = "android:fontFamily"> @font/raleway </item>
         <item name = "android:textSize"> 35sp </item>

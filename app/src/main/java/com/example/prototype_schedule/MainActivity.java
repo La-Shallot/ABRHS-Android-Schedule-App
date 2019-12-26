@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private final String GOLD_LUNCH_ACCESS_CODE = "gold_lunch";
     private final String SETUP_STATUS = "setup";
     private final String SEPERATER = ",";
+    private final String SET_UP_FILE_NAME = "setup_file";
 
     private String[] Day_Blue_Classes = new String[7];
     private String[] Day_Blue_Lunches;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
         Schedule schedule = new Schedule();
         //ActionBar actionBar = getActionBar();
 
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             retrieve_and_setClasses();
 
             weekCalender = new WeekCalender();
-
 
             //MULTI_DAY VIEW
             setContentView(R.layout.activity_main);
@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             String textToShow = "Resetting...";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, SetUp.class);
-            ChangesetUpStatus(false);
             startActivityForResult(intent, SETUP_ACCESS_CODE);
 
             return true;
@@ -151,6 +150,22 @@ public class MainActivity extends AppCompatActivity {
         generateData(weekCalender.cur_month, weekCalender.getCur_day());
     }
 
+    private void Restart(){
+        //Re-start setup
+        retrieve_and_setClasses();
+
+        weekCalender = new WeekCalender();
+
+        //MULTI_DAY VIEW
+        setContentView(R.layout.activity_main);
+        main_layout = (LinearLayout) findViewById(R.id.main_Activity);
+
+
+        setUpNavBar();
+        setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
+        generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
+    }
+
     //get "today"
     //generate by month and day
     private void generateData(int month, int day) {
@@ -196,21 +211,24 @@ public class MainActivity extends AppCompatActivity {
     //DATA SETTING AREA
 
     private void permaSaveClasses() {
-        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor spe = sp.edit();
         spe.putString(BLUE_ACCESS_CODE, concat_Classes(Day_Blue_Classes));
         spe.putString(GOLD_ACCESS_CODE, concat_Classes(Day_Gold_Classes));
-        spe.putString(BLUE_LUNCH_ACCESS_CODE, concat_Classes(Day_Blue_Lunches));
-        spe.putString(GOLD_LUNCH_ACCESS_CODE, concat_Classes(Day_Gold_Lunches));
+       /* spe.putString(BLUE_LUNCH_ACCESS_CODE, concat_Classes(Day_Blue_Lunches));
+        spe.putString(GOLD_LUNCH_ACCESS_CODE, concat_Classes(Day_Gold_Lunches));*/
         spe.commit();
     }
 
     private void retrieve_and_setClasses() {
-        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
         Day_Gold_Classes = sp.getString(GOLD_ACCESS_CODE, " ").split(SEPERATER);
-        Day_Gold_Lunches = sp.getString(GOLD_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
+      /*  Day_Gold_Lunches = sp.getString(GOLD_LUNCH_ACCESS_CODE, " ").split(SEPERATER);*/
+        Day_Gold_Lunches = new String[]{"1", "1", "1", "1", "1", "1", "1"};
+        Day_Blue_Lunches = new String[]{"1", "1", "1", "1", "1", "1", "1"};
         Day_Blue_Classes = sp.getString(BLUE_ACCESS_CODE, " ").split(SEPERATER);
-        Day_Blue_Lunches = sp.getString(BLUE_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
+        /*Day_Blue_Lunches = sp.getString(BLUE_LUNCH_ACCESS_CODE, " ").split(SEPERATER);*/
+
         schedule.setClasses(Day_Blue_Classes, Day_Gold_Classes, Day_Blue_Lunches, Day_Gold_Lunches);
         checkClasses();
     }
@@ -227,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void ChangesetUpStatus(boolean b) {
-        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor spe = sp.edit();
         spe.putBoolean(SETUP_STATUS, b);
         spe.commit();
@@ -252,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 Day_Blue_Lunches = data.getStringArrayExtra("Blue_Lunch");
                 ChangesetUpStatus(true);
                 permaSaveClasses();
-                //Refresh();
+                Restart();
             }
         }
     }

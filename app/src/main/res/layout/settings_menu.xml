@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Classes_Settings"
+        android:clickable="true"
+        android:padding="20dp">
+        <TextView
+            android:layout_margin="20dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Classes"
+            android:layout_weight="4"
+            style="@style/ClassStyle"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_margin = "10dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/right_ley"
+            android:background="@color/darkGray"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Lunch_Settings"
+        android:clickable="true"
+        android:padding="20dp">
+        <TextView
+            android:layout_margin="20dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Lunch"
+            android:layout_weight="4"
+            style="@style/ClassStyle"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_margin = "10dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/right_ley"
+            android:background="@color/darkGray"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

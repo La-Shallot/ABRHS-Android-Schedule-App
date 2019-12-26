@@ -2,19 +2,27 @@ package com.example.prototype_schedule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SetUp extends AppCompatActivity {
 
     private static final String TAG = "Setup Activity";
 
-    private TextView next_button;
+    private LinearLayout classes_button;
+    private LinearLayout lunch_button;
+    private TextView classes_next;
 
     //Day Blue
     private String[] Day_Blue_Classes = new String[7];
@@ -22,68 +30,96 @@ public class SetUp extends AppCompatActivity {
     private String[] Day_Gold_Classes = new String[7];
     private String[] Day_Gold_Lunches;
 
+    private final int SETUP_ACCESS_CODE = 1111;
+    private final String BLUE_ACCESS_CODE = "blue";
+    private final String GOLD_ACCESS_CODE = "gold";
+    private final String BLUE_LUNCH_ACCESS_CODE = "blue_lunch";
+    private final String GOLD_LUNCH_ACCESS_CODE = "gold_lunch";
+    private final String SETUP_STATUS = "setup";
+    private final String SEPERATER = ",";
+    private final String SET_UP_FILE_NAME = "setup_file";
 
+    boolean setup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setup_blue);
+        setContentView(R.layout.settings_menu);
+        SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
 
-        next_button = findViewById(R.id.blue_next);
-        next_button.setOnClickListener(new NextListener());
+        //get setup status
+        if(sp.getBoolean(SETUP_STATUS, false)){
+            Log.d(TAG, "onCreate: Setup, initiating classes");
+            setup = true;
+            retrieveClasses();
+        }
+        else{
+            Log.d(TAG, "onCreate: Not Setup, initiating classes");
+            setup = false;
+        }
 
+        classes_button = findViewById(R.id.Classes_Settings);
+        classes_button.setOnClickListener(new ButtonListener());
 
-
-
-
+        lunch_button = findViewById(R.id.Lunch_Settings);
+        lunch_button.setOnClickListener(new ButtonListener());
 
 
     }
 
+    //MENUS MENUS
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.setting, menu);
+
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClickedId = item.getItemId();
+        switch (itemThatWasClickedId){
+            case R.id.finish_settings_button:
+                Intent intent = new Intent(SetUp.this, MainActivity.class);
+                intent.putExtra("Gold_Class", Day_Gold_Classes);
+                intent.putExtra("Blue_Class", Day_Blue_Classes);
+                intent.putExtra("Gold_Lunch", Day_Gold_Lunches);
+                intent.putExtra("Blue_Lunch", Day_Blue_Lunches);
+                setResult(RESULT_OK, intent);
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     //button after blue day set-up
-    private class NextListener implements View.OnClickListener{
+    private class ButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.blue_next:
-                    //save data
+                case R.id.Classes_Settings:
+                    //go to classes page
+                    setContentView(R.layout.classes_setup);
+                    classes_next = findViewById(R.id.class_next_button);
+                    classes_next.setOnClickListener(new ButtonListener());
+                    if(setup) {
+                        display_Day_Blue();
+                        display_Day_Gold();
+                    }
+
+                    break;
+
+                case R.id.class_next_button:
                     save_Day_Blue();
-                    //switch to day blue lunch
-                    setContentView(R.layout.lunch_blue);
-                    next_button = findViewById(R.id.blue_lunch_next);
-                    next_button.setOnClickListener(new NextListener());
-                    break;
-
-                case R.id.blue_lunch_next:
-                    Log.d(TAG, "onClick: enter Click listener afyer blue lunch");
-                    //save data
-                    save_Day_Blue_Lunch();
-                    //switch to day gold view
-                    setContentView(R.layout.setup_gold);
-                    next_button = findViewById(R.id.gold_next);
-                    next_button.setOnClickListener(new NextListener());
-                    break;
-
-                case R.id.gold_next:
-                    //save data
                     save_Day_Gold();
-                    //switch to day gold lunch view
-                    setContentView(R.layout.lunch_gold);
-                    next_button = findViewById(R.id.gold_lunch_next);
-                    next_button.setOnClickListener(new NextListener());
+                    setup = true;
+                    setContentView(R.layout.settings_menu);
+                    setup_main_setting_menu();
                     break;
 
                 case R.id.gold_lunch_next:
                     //save data
                     save_Day_Gold_Lunch();
                     //switch to schedule activity!
-                    Intent intent = new Intent(SetUp.this, MainActivity.class);
-                    intent.putExtra("Gold_Class", Day_Gold_Classes);
-                    intent.putExtra("Blue_Class", Day_Blue_Classes);
-                    intent.putExtra("Gold_Lunch", Day_Gold_Lunches);
-                    intent.putExtra("Blue_Lunch", Day_Blue_Lunches);
-                    setResult(RESULT_OK, intent);
-                    finish();
             }
 
 
@@ -227,6 +263,86 @@ public class SetUp extends AppCompatActivity {
 
             Day_Gold_Lunches = temp;
         }
+
+        private void display_Day_Blue(){
+            //Day Blue
+            //Day A
+            EditText A = (EditText) findViewById(R.id.B_Period1);
+            A.setText(Day_Blue_Classes[0], TextView.BufferType.EDITABLE);
+
+            //Day B
+            EditText B = (EditText) findViewById(R.id.B_Period2);
+            B.setText(Day_Blue_Classes[1], TextView.BufferType.EDITABLE);
+
+            //Day C
+            EditText C = (EditText) findViewById(R.id.B_Period3);
+            C.setText(Day_Blue_Classes[2], TextView.BufferType.EDITABLE);
+
+            //Day D
+            EditText D = (EditText) findViewById(R.id.B_Period4);
+            D.setText(Day_Blue_Classes[3], TextView.BufferType.EDITABLE);
+
+            //Day E
+            EditText E = (EditText) findViewById(R.id.B_Period5);
+            E.setText(Day_Blue_Classes[4], TextView.BufferType.EDITABLE);
+
+            //Day F
+            EditText F = (EditText) findViewById(R.id.B_Period6);
+            F.setText(Day_Blue_Classes[5], TextView.BufferType.EDITABLE);
+
+            //Day G
+            EditText G = (EditText) findViewById(R.id.B_Period7);
+            G.setText(Day_Blue_Classes[6], TextView.BufferType.EDITABLE);
+
+
+        }
+
+        private void display_Day_Gold(){
+            EditText A = (EditText) findViewById(R.id.G_Period1);
+            A.setText(Day_Gold_Classes[0], TextView.BufferType.EDITABLE);
+
+            //Day B
+            A = (EditText) findViewById(R.id.G_Period2);
+            A.setText(Day_Gold_Classes[1], TextView.BufferType.EDITABLE);
+
+            //Day C
+            A = (EditText) findViewById(R.id.G_Period3);
+            A.setText(Day_Gold_Classes[2], TextView.BufferType.EDITABLE);
+
+            //Day D
+            A = (EditText) findViewById(R.id.G_Period4);
+            A.setText(Day_Gold_Classes[3], TextView.BufferType.EDITABLE);
+            //Day E
+            A = (EditText) findViewById(R.id.G_Period5);
+            A.setText(Day_Gold_Classes[4], TextView.BufferType.EDITABLE);
+
+            //Day F
+            A = (EditText) findViewById(R.id.G_Period6);
+            A.setText(Day_Gold_Classes[5], TextView.BufferType.EDITABLE);
+
+            //Day G
+            A = (EditText) findViewById(R.id.G_Period7);
+            A.setText(Day_Gold_Classes[6], TextView.BufferType.EDITABLE);
+        }
+
+
     }
+
+    private void retrieveClasses(){
+        SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
+        Day_Gold_Classes = sp.getString(GOLD_ACCESS_CODE, " ").split(SEPERATER);
+        Day_Gold_Lunches = sp.getString(GOLD_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
+        Day_Blue_Classes = sp.getString(BLUE_ACCESS_CODE, " ").split(SEPERATER);
+        Day_Blue_Lunches = sp.getString(BLUE_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
+    }
+
+    private void setup_main_setting_menu(){
+        classes_button = findViewById(R.id.Classes_Settings);
+        classes_button.setOnClickListener(new ButtonListener());
+
+        lunch_button = findViewById(R.id.Lunch_Settings);
+        lunch_button.setOnClickListener(new ButtonListener());
+    }
+
 
 }

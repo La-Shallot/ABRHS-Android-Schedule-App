@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/smallerTitleDark"
+        android:textSize="14sp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/Lunch_blue_instructions"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="20">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:text="Day Blue"
+                android:textAlignment="center" />
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_1"/>
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_2"/>
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_3"/>
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_4"/>
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_5"/>
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_6"/>
+
+            <EditText
+                style="@style/smallerTitleDark"
+                android:id="@+id/BL_Period7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_7"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:text="Day Gold"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/GL_Period1"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_1" />
+
+            <EditText
+                android:id="@+id/GL_Period2"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_2" />
+
+            <EditText
+                android:id="@+id/GL_Period3"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_3" />
+
+            <EditText
+                android:id="@+id/GL_Period4"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_4" />
+
+            <EditText
+                android:id="@+id/GL_Period5"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_5" />
+
+            <EditText
+                android:id="@+id/GL_Period6"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_6" />
+
+            <EditText
+                android:id="@+id/GL_Period7"
+                style="@style/smallerTitleDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/period_7" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text = "Done"
+        style="@style/smallerTitleDark"
+        android:clickable="true"
+        android:id="@+id/lunch_next_button"/>
+
+
+</LinearLayout>

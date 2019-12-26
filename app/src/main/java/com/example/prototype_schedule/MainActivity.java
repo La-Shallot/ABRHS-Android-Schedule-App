@@ -215,19 +215,19 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor spe = sp.edit();
         spe.putString(BLUE_ACCESS_CODE, concat_Classes(Day_Blue_Classes));
         spe.putString(GOLD_ACCESS_CODE, concat_Classes(Day_Gold_Classes));
-       /* spe.putString(BLUE_LUNCH_ACCESS_CODE, concat_Classes(Day_Blue_Lunches));
-        spe.putString(GOLD_LUNCH_ACCESS_CODE, concat_Classes(Day_Gold_Lunches));*/
+        spe.putString(BLUE_LUNCH_ACCESS_CODE, concat_Classes(Day_Blue_Lunches));
+        spe.putString(GOLD_LUNCH_ACCESS_CODE, concat_Classes(Day_Gold_Lunches));
         spe.commit();
     }
 
     private void retrieve_and_setClasses() {
         SharedPreferences sp = this.getSharedPreferences(SET_UP_FILE_NAME, Context.MODE_PRIVATE);
         Day_Gold_Classes = sp.getString(GOLD_ACCESS_CODE, " ").split(SEPERATER);
-      /*  Day_Gold_Lunches = sp.getString(GOLD_LUNCH_ACCESS_CODE, " ").split(SEPERATER);*/
-        Day_Gold_Lunches = new String[]{"1", "1", "1", "1", "1", "1", "1"};
-        Day_Blue_Lunches = new String[]{"1", "1", "1", "1", "1", "1", "1"};
+        Day_Gold_Lunches = sp.getString(GOLD_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
+//        Day_Gold_Lunches = new String[]{"1", "1", "1", "1", "1", "1", "1"};
+//        Day_Blue_Lunches = new String[]{"1", "1", "1", "1", "1", "1", "1"};
         Day_Blue_Classes = sp.getString(BLUE_ACCESS_CODE, " ").split(SEPERATER);
-        /*Day_Blue_Lunches = sp.getString(BLUE_LUNCH_ACCESS_CODE, " ").split(SEPERATER);*/
+        Day_Blue_Lunches = sp.getString(BLUE_LUNCH_ACCESS_CODE, " ").split(SEPERATER);
 
         schedule.setClasses(Day_Blue_Classes, Day_Gold_Classes, Day_Blue_Lunches, Day_Gold_Lunches);
         checkClasses();
@@ -289,9 +289,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //month incremented to meet JANUARY starting at 0 for Calendar library
-        if(schedule.getDayofWeek(weekCalender.getCur_month(), weekCalender.getCur_day()) < 5){
+        if(weekCalender.getDayofWeek(weekCalender.getCur_month(), weekCalender.getCur_day()) < 5){
             //weekday, find day and place dot
-            navbar.setTabIndex(schedule.getDayofWeek(weekCalender.getCur_month(), weekCalender.getCur_day()));
+            navbar.setTabIndex(weekCalender.getDayofWeek(weekCalender.getCur_month(), weekCalender.getCur_day()));
             generateData(weekCalender.getCur_month(), weekCalender.getCur_day());
             setTitle(weekCalender.getCur_month() + "/" + weekCalender.getCur_day());
         }

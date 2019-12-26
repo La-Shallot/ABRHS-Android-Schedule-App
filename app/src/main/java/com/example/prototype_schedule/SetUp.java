@@ -26,11 +26,10 @@ public class SetUp extends AppCompatActivity {
 
     //Day Blue
     private String[] Day_Blue_Classes = new String[7];
-    private String[] Day_Blue_Lunches;
+    private String[] Day_Blue_Lunches = new  String[7];
     private String[] Day_Gold_Classes = new String[7];
-    private String[] Day_Gold_Lunches;
+    private String[] Day_Gold_Lunches = new  String[7];
 
-    private final int SETUP_ACCESS_CODE = 1111;
     private final String BLUE_ACCESS_CODE = "blue";
     private final String GOLD_ACCESS_CODE = "gold";
     private final String BLUE_LUNCH_ACCESS_CODE = "blue_lunch";
@@ -101,16 +100,34 @@ public class SetUp extends AppCompatActivity {
                     setContentView(R.layout.classes_setup);
                     classes_next = findViewById(R.id.class_next_button);
                     classes_next.setOnClickListener(new ButtonListener());
-                    if(setup) {
+                    if(Day_Blue_Classes.length > 5) {
                         display_Day_Blue();
                         display_Day_Gold();
                     }
 
                     break;
 
+                case R.id.Lunch_Settings:
+                    setContentView(R.layout.lunches_setup);
+                    classes_next = findViewById(R.id.lunch_next_button);
+                    classes_next.setOnClickListener(new ButtonListener());
+                    if(Day_Blue_Lunches.length > 5){
+                        display_Day_Blue_Lunch();
+                        display_Day_Gold_Lunch();
+                    }
+                    break;
+
                 case R.id.class_next_button:
                     save_Day_Blue();
                     save_Day_Gold();
+                    setup = true;
+                    setContentView(R.layout.settings_menu);
+                    setup_main_setting_menu();
+                    break;
+
+                case R.id.lunch_next_button:
+                    save_Day_Blue_Lunch();
+                    save_Day_Gold_Lunch();
                     setup = true;
                     setContentView(R.layout.settings_menu);
                     setup_main_setting_menu();
@@ -323,6 +340,67 @@ public class SetUp extends AppCompatActivity {
             //Day G
             A = (EditText) findViewById(R.id.G_Period7);
             A.setText(Day_Gold_Classes[6], TextView.BufferType.EDITABLE);
+        }
+
+        private void display_Day_Gold_Lunch(){
+            //Day A
+            EditText A = (EditText) findViewById(R.id.GL_Period1);
+            A.setText(Day_Gold_Lunches[0], TextView.BufferType.EDITABLE);
+
+            //Day B
+            A = (EditText) findViewById(R.id.GL_Period2);
+            A.setText(Day_Gold_Lunches[1], TextView.BufferType.EDITABLE);
+
+            //Day C
+            A = (EditText) findViewById(R.id.GL_Period3);
+            A.setText(Day_Gold_Lunches[2], TextView.BufferType.EDITABLE);
+
+            //Day D
+            A = (EditText) findViewById(R.id.GL_Period4);
+            A.setText(Day_Gold_Lunches[3], TextView.BufferType.EDITABLE);
+
+            //Day E
+            A = (EditText) findViewById(R.id.GL_Period5);
+            A.setText(Day_Gold_Lunches[4], TextView.BufferType.EDITABLE);
+
+            //Day F
+            A = (EditText) findViewById(R.id.GL_Period6);
+            A.setText(Day_Gold_Lunches[5], TextView.BufferType.EDITABLE);
+
+            //Day G
+            A = (EditText) findViewById(R.id.GL_Period7);
+            A.setText(Day_Gold_Lunches[6], TextView.BufferType.EDITABLE);
+        }
+
+        private void display_Day_Blue_Lunch(){
+            String[] temp = new String[7];
+            //Day A
+            EditText A = (EditText) findViewById(R.id.BL_Period1);
+           A.setText(Day_Blue_Lunches[0], TextView.BufferType.EDITABLE);
+
+            //Day B
+            EditText B = (EditText) findViewById(R.id.BL_Period2);
+            B.setText(Day_Blue_Lunches[1], TextView.BufferType.EDITABLE);
+
+            //Day C
+            EditText C = (EditText) findViewById(R.id.BL_Period3);
+            C.setText(Day_Blue_Lunches[2], TextView.BufferType.EDITABLE);
+
+            //Day D
+            EditText D = (EditText) findViewById(R.id.BL_Period4);
+            D.setText(Day_Blue_Lunches[3], TextView.BufferType.EDITABLE);
+
+            //Day E
+            EditText E = (EditText) findViewById(R.id.BL_Period5);
+            E.setText(Day_Blue_Lunches[4], TextView.BufferType.EDITABLE);
+
+            //Day F
+            EditText F = (EditText) findViewById(R.id.BL_Period6);
+            F.setText(Day_Blue_Lunches[5], TextView.BufferType.EDITABLE);
+
+            //Day G
+            EditText G = (EditText) findViewById(R.id.BL_Period7);
+            G.setText(Day_Blue_Lunches[6], TextView.BufferType.EDITABLE);
         }
 
 

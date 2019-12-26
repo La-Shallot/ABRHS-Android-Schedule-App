@@ -7,6 +7,7 @@
         app:showAsAction="ifRoom"
         android:title="Reset"
         android:icon="@drawable/ic_date_range_black_24dp"
+        android:visible="false"
         />
     <item
         android:id="@+id/reset"

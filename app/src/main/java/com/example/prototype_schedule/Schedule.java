@@ -18,6 +18,9 @@ public class Schedule {
     String[] G_Lunch;
     int [] Days_of_Month = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+    private WeekCalender weekCalender = new WeekCalender();
+
+
     //Bell Schedule
     //Format: [Period 1, Period 2, (Advisory) Period 3, Period 4, Lunch 1, Lunch 2, Lunch 3, Period 5, Period 6]
     String[] Regular = {"8:00", "9:00", "10:00", "11:03","12:52", "1:52"};
@@ -139,7 +142,6 @@ public class Schedule {
         this.Gold_Classes = Gold;
         this.B_Lunch = B_Lunch;
         this.G_Lunch = G_Lunch;
-
     }
 
     public int getDay(int month, int day){
@@ -152,64 +154,11 @@ public class Schedule {
     }
 
     public int getDay(int month, int day, int DayofWeek){
-        int[] date = getDateofWeekday(month, day, DayofWeek);
+        int[] date = weekCalender.getDateofWeekday(month, day, DayofWeek);
         return getDay(date[0] + 1, date[1] + 1);
     }
 
-    public int[] getDateofWeekday(int month, int day, int DayofWeek){
-        //GET day number from the week
-        //month and day are their normal values
-        //days of the week go form 0 = monday to 6 - Sunday
-        int curWeekday = getDayofWeek(month, day);
-        int difference = DayofWeek - curWeekday;
-        return fastForward(month, day, difference);
-    }
 
-    public int[] fastForward(int month, int day, int days_forward){
-        //method that takes a date and returns the day "days forward" later
-        //month and day are normal notation
-        if(days_forward > 0){
-            for(int i = 0; i < days_forward; i++){
-                // month - 1 becaues arrays start at 0
-                if(day == Days_of_Month[month - 1]){
-                    //overflow into next month
-                    if(month == 12){
-                        //overflow into next year
-                        month = 1;
-                        day = 1;
-                    }
-                    else{
-                        month ++;
-                        day = 1;
-                    }
-                }
-                else{
-                    day ++;
-                }
-            }
-        }
-        if(days_forward < 0){
-            for(int i = 0; i < Math.abs(days_forward); i++){
-                if(day == 1){
-                    //overflow into last month
-                    if(month == 1){
-                        //overflow into last year
-                        month = 12;
-                        day = 31;
-                    }
-                    else{
-                        month --;
-                        day = Days_of_Month[month - 1];
-                    }
-                }
-                else{
-                    day --;
-                }
-            }
-
-        }
-        return new int[] {month, day};
-    }
 
     public ArrayList<String> getDayClasses(int month, int day){
         ArrayList<String> Classes;
@@ -350,18 +299,7 @@ public class Schedule {
         return result;
     }
 
-    public int getDayofWeek(int month, int day){
-        //MONDAY START AT 0
-        Calendar calendar = Calendar.getInstance();
-        if(month < 8){
-            calendar.set(2020, month - 1, day);
-        }
-        else{
-            calendar.set(2019, month - 1, day);
-        }
 
-        return (calendar.get(Calendar.DAY_OF_WEEK)  - 2) % 7;
-    }
 
     public boolean hasSchool(int month, int day){
         int dayNum = getDay(month, day);

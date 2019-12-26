@@ -2,7 +2,7 @@
     <string name="app_name">Prototype_Schedule</string>
     <string name="set_up_blue_title"> Day Blue </string>
     <string name = "lunch_blue_title"> Day Blue Lunch </string>
-    <string name = "Lunch_blue_instructions"> Enter 1, 2, or 3 to indicate start, middle, or end lunch period </string>
+    <string name = "Lunch_blue_instructions"> Enter 1, 2, or 3 to indicate lunch period . Enter 1 for free.</string>
     <string name="set_up_blue_instructions"> Please enter your schedule on the first day of school below </string>
     <string name="period_1"> Period A</string>
     <string name="period_2"> Period B</string>
